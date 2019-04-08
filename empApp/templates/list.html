@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Title Here{% endblock %}
+
+  {% block stylesheet %}
+  {% endblock %}
+
+
+{% block content %}
+
+<table class="table table-striped DataTable" id="emptable" data-page-length='5'>
+<thead>
+  <tr>
+      <th>Employee ID</th>
+      <th>Employee Name</th>
+      <th>Email</th>
+      <th>Date of birth</th>
+      <th>Salary</th>
+      <th>Photo</th>
+      <th>User</th>
+      <th>Actions</th>
+  </tr>
+</thead>
+<tbody>
+  {% for employee in employees %}
+      <tr>
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.name }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.dob|date:"d/m/Y" }}</td>
+          <td>{{ employee.salary }}</td>
+          <td><img src="{{ employee.photo.url}}" alt="No" width="100px"  /></td>
+          <td>{{ employee.user }}</td>
+          <td>
+              <a href="/edit/{{ employee.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>
+              <a href="/delete/{{ employee.id }}">Delete</a>
+          </td>
+      </tr>
+  {% endfor %}
+
+</tbody>
+
+</table>
+
+<br>
+<center><a href="/create" class="btn btn-primary">Add New Record</a></center>
+
+<script>
+$(document).ready(function() {
+    $('#emptable').DataTable({
+      "dom": '<f<t>ip>',
+      "lengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]]
+
+    });
+} );
+</script>
+{% endblock %}

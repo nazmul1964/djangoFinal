@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Title Here{% endblock %}
+
+  {% block stylesheet %}
+  {% endblock %}
+
+
+{% block content %}
+
+<table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
+    <tr>
+        <th>Employee ID</th>
+        <th>Employee Name</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Salary</th>
+        <th>Photo</th>
+        <th>User</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+{% for employee in employees %}
+    <tr>
+        <td>{{ employee.id }}</td>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.dob|date:"d/m/Y" }}</td>
+        <td>{{ employee.salary }}</td>
+        <td><img src="{{ employee.photo.url}}" alt="No" width="100px"  /></td>
+        <td>{{ employee.user }}</td>
+        <td>
+            <a href="/edit/{{ employee.id }}"><span class="glyphicon glyphicon-pencil" >Edit</span></a>
+            <a href="/delete/{{ employee.id }}">Delete</a>
+        </td>
+    </tr>
+{% endfor %}
+    </tbody>
+</table>
+<br>
+
+{% if employees.has_other_pages %}
+  <ul class="pagination">
+    {% if employees.has_previous %}
+      <li><a href="?page={{ employees.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in employees.paginator.page_range %}
+      {% if employees.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if employees.has_next %}
+      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+<br>
+<center><a href="/create" class="btn btn-primary">Add New Record</a></center>
+
+
+{% endblock %}

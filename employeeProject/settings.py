@@ -25,6 +25,7 @@ SECRET_KEY = '#yjv-+w-4*)c9$)j4alrcybh5s#rih)wuul@nzzm-9xca+%9o5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#ALLOWED_HOSTS = ['https://www.pythonanywhere.com/user/nazmul2019/']
 ALLOWED_HOSTS = []
 
 
